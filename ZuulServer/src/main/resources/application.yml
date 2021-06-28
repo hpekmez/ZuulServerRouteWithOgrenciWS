@@ -1,0 +1,43 @@
+spring:
+  cloud:
+    config:
+      uri: http://zull-server:8091
+  application:
+    name: zuul-server
+server:
+  port: 8091
+  connection-timeout: 60000
+  servlet:
+    session:  
+      timeout: 60s      
+   
+zuul:
+  host:
+    connect-timeout-millis: 60000
+    connection-request-timeout-millis: 60000
+    socket-timeout-millis: 60000
+  routes:
+    OgrenciApi:
+      path: /Api/**
+      url: http://localhost:8036/
+
+
+#By default, if you use @EnableZuulProxy with the Spring Boot Actuator, you enable two additional endpoints:
+management: 
+ endpoint:
+    routes:
+      enabled: true 
+ endpoints:
+    web:
+      exposure:
+        include: "*"
+        
+        
+
+#ribbon:
+#   eureka:
+#      enabled: true
+
+#ogrenci-ws:
+#   ribbon:
+#      listOfServers: localhost:8080
